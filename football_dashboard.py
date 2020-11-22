@@ -7,7 +7,7 @@ from FootballData import FootballData
 # Function that loads the full dataset (this is cached)
 @st.cache
 def load_dataset():
-    df = FootballData('1886-87','2019-20').get_team_stats('all')
+    df = FootballData('1888-89','2019-20').get_team_stats('all')
     df = df.groupby(['Season', 'Team'], as_index=False).agg({'Total goals': 'mean', 'Points':'sum', 'Team goals':'mean', 'Goals against':'mean', 'Goal difference':'sum'})
     return df
 # Function that takes the full dataset and filters it based on the sidebar criteria - also cached
