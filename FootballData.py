@@ -43,7 +43,7 @@ class FootballData(object):
             if i in seasons_list:
                 try:
                     season = re.findall(r'\d\d\d\d-\d\d', i)[0]
-                    df = pd.read_csv(df_dictionary[i], index_col=None, header=0, sep='delimiter')
+                    df = pd.read_csv(df_dictionary[i], index_col=None, header=0)
                     df['Season'] = season
                     df_list.append(df)
                 except FileNotFoundError:#This exception accommodates the fact that data is not available for all years - for example, seasons that were not played due to WW1 and WW2.
@@ -51,7 +51,7 @@ class FootballData(object):
                 except urllib.error.HTTPError:
                     continue
         #Finally, merge the dfs in df_list into a single df
-        df = pd.concat(df_list, axis =0, ignore_index=True)
+        df = pd.concat(df_list, axis = 0, ignore_index=True)
         FT_score_list = df['FT'].map(lambda FT: re.findall(r'\d+', FT)) #This converts the string '2-1' to a list [2,1]
         HT_score_list = df['HT'].map(lambda HT: re.findall(r'\d+', HT))
         df['Total goals'] = FT_score_list.map(lambda goals: int(goals[0]) + int(goals[1]))
