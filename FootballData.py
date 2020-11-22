@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import re
+import urllib
 
 class FootballData(object):
     def __init__(self, start_season, end_season):
@@ -46,6 +47,8 @@ class FootballData(object):
                     df['Season'] = season
                     df_list.append(df)
                 except FileNotFoundError:#This exception accommodates the fact that data is not available for all years - for example, seasons that were not played due to WW1 and WW2.
+                    continue
+                except urllib.error.HTTPError:
                     continue
         #Finally, merge the dfs in df_list into a single df
         df = pd.concat(df_list, axis =0, ignore_index=True)
