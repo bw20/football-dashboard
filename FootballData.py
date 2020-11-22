@@ -40,13 +40,10 @@ class FootballData(object):
         #Use the keys in seasons_list to fetch the paths to each season, and reading them in to a list of dfs in df_list
         for i in df_dictionary:
             if i in seasons_list:
-                try:
-                    season = re.findall(r'\d\d\d\d-\d\d', i)[0]
-                    df = pd.read_csv(df_dictionary[i], index_col=None, header=0)
-                    df['Season'] = season
-                    df_list.append(df)
-                except FileNotFoundError: #This exception accommodates the fact that data is not available for all years - for example, seasons that were not played due to WW1 and WW2.
-                    continue
+                season = re.findall(r'\d\d\d\d-\d\d', i)[0]
+                df = pd.read_csv(df_dictionary[i], index_col=None, header=0)
+                df['Season'] = season
+                df_list.append(df)
         #Finally, merge the dfs in df_list into a single df
         df = pd.concat(df_list, axis =0, ignore_index=True)
         FT_score_list = df['FT'].map(lambda FT: re.findall(r'\d+', FT)) #This converts the string '2-1' to a list [2,1]
