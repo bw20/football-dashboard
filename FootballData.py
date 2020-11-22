@@ -42,7 +42,7 @@ class FootballData(object):
             if i in seasons_list:
                 try:
                     season = re.findall(r'\d\d\d\d-\d\d', i)[0]
-                    df = pd.read_csv(df_dictionary[i], index_col=None, header=0)
+                    df = pd.read_csv(df_dictionary[i], index_col=None, header=0, sep='delimiter')
                     df['Season'] = season
                     df_list.append(df)
                 except FileNotFoundError:#This exception accommodates the fact that data is not available for all years - for example, seasons that were not played due to WW1 and WW2.
