@@ -9,7 +9,7 @@ class FootballData(object):
     def create_df(self):
         def seasons_dictionary(starting_decade, ending_decade):
             #Create a dictionary with the decades and seasons for each dataset.
-            eng = 'D:\Google Drive\\New Dropbox\Work stuff\Professional Development\Data Projects\Football_python\england-master'
+            eng = '\england-master'
             seasons = {}
             for i in range(int(abs((starting_decade - ending_decade)/10)) + 1):
                 decade = starting_decade
